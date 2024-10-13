@@ -1,1 +1,501 @@
-欢迎来到三体世界
+
+<!-- 首页 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,minimum-scale=0.1,maximum-scale=1.0" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!--QQ强制全屏-->
+    <meta name="x5-fullscreen" content="true">
+    <!--UC强制全屏-->
+    <meta name="fullscreen" content="yes">
+    <meta name="keywords" content="三体动画,三体,三体官方,三体宇宙,三体动画,三体电视剧,三体美剧,三体广播剧,三体有声书,三体舞台剧,三体展">
+<meta name="description" content="三体宇宙是《三体》三部曲内容开发及商业衍生的全球独家版权方，致力于打造具有国际影响力的中国顶尖科幻品牌。">
+<title>三体官方网站</title>
+    <script src="https://www.3body.com/static/utils/jquery/jquery.min.js"></script>
+    <script src="https://www.3body.com/static/utils/h5/rem.js"></script>
+    <script src="https://www.3body.com/static/utils/vue/vue.min.js"></script>
+    <link rel="icon" href="https://www.3body.com/favicon.ico">
+    <link
+            rel="stylesheet"
+            href="https://www.3body.com/static/styles/bootstrap/bootstrap.min.css"
+            type="text/css"
+    />
+    <link rel="stylesheet" href="https://www.3body.com/static/styles/index_h5.css" type="text/css" />
+    <link rel="stylesheet" href="https://www.3body.com/static/styles/swiper/swiper.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://www.3body.com/static/styles/pages-h5/home/home.css" type="text/css" />
+<body class="container">
+<div id="app">
+    <st-header :handle-caidan-click="handleCaidanClick"></st-header>
+    <div class="content">
+        <div class="content_nav">
+            <div class="content_layout" v-for="item in homePageData" :key="item.id" @click="toOtherPage(item.type)" @touchstart="touchStart(item.type)" @touchend="touchEnd(item.type)" @touchmove="touchMove(item.type)">
+                <div class="content_left">
+                    <div class="content_left_number">
+                        <div class="content_left_number_mask"></div>
+                        <img class="content_left_number_icon" :src="activeType === item.type ? item.number2 : item.number1" alt="" srcset="">
+                    </div>
+                    <div :class="activeType === item.type ? 'content_left_name header_pagename_active' : 'content_left_name'">
+                        <div>三体</div>
+                        <div>{{item.name}}</div>
+                    </div>
+                    <div :class="activeType === item.type ? 'content_left_forward header_pagename_active' : 'content_left_forward'">前进</div>
+                </div>
+                <div class="content_right">
+                    <div class="content_right_circle_mask"></div>
+                    <img class="content_right_circle" :src="activeType === item.type ? item.src2 : item.src1" alt="" srcset="">
+                </div>
+                <div class="content_left_line"></div>
+            </div>
+
+        </div>
+        <div class="caidan-content">
+            <caidan-content v-for="item in caidanData" :data="item" :key="item.type" :to-other-page="toOtherPage"></caidan-content>
+        </div>
+
+        <div class="content_share">
+            <div class="content_share_text" @Click="onShareClick()">分享</div>
+        </div>
+    </div>
+    <div class="home-swiper">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img class="swiper-slide-image" src="https://rs.3body.com/2023/12/21/197c9932-9cd4-4ccb-8a81-c8b6759a0094.jpg" alt="" />
+                        <div class="swiper-slide-content">
+                            <div class="swiper-slide-title">
+                                <div class="swiper-slide-title-text">三体宇宙成为世界科幻大会特邀IP合作伙伴</div>
+                                <img class="swiper-slide-text-shadow" src="https://www.3body.com/static/image/pages-h5/home/text_shadow.png" alt="" />
+                            </div>
+                            <div class="swiper-slide-operation">
+                                <a class="swiper-slide-detail" href="https://www.3body.com/front/news/newsDetail.html?newsId=45" target="_blank">
+                                    <span>详情</span>
+                                    <img class="swiper-slide-detail_icon" src="https://www.3body.com/static/image/pages-h5/home/detail_button.png" alt="" />
+                                </a>
+                                <a class="swiper-slide-page" href="https://www.3body.com/home.html" target="_self">主页</a>
+                            </div>
+                        </div>
+                        <img class="swiper-slide-shadow" src="https://www.3body.com/static/image/pages-h5/home/shadow.png" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img class="swiper-slide-image" src="https://rs.3body.com/2023/12/21/84fd303d-4453-4fa2-b6d1-48c84e6dea2f.jpg" alt="" />
+                        <div class="swiper-slide-content">
+                            <div class="swiper-slide-title">
+                                <div class="swiper-slide-title-text">《三体立体书 红岸基地》众筹成功</div>
+                                <img class="swiper-slide-text-shadow" src="https://www.3body.com/static/image/pages-h5/home/text_shadow.png" alt="" />
+                            </div>
+                            <div class="swiper-slide-operation">
+                                <a class="swiper-slide-detail" href="https://www.3body.com/front/news/newsDetail.html?newsId=47" target="_blank">
+                                    <span>详情</span>
+                                    <img class="swiper-slide-detail_icon" src="https://www.3body.com/static/image/pages-h5/home/detail_button.png" alt="" />
+                                </a>
+                                <a class="swiper-slide-page" href="https://www.3body.com/home.html" target="_self">主页</a>
+                            </div>
+                        </div>
+                        <img class="swiper-slide-shadow" src="https://www.3body.com/static/image/pages-h5/home/shadow.png" alt="" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img class="swiper-slide-image" src="https://rs.3body.com/2023/12/21/d44fc2e1-56f7-420c-ad88-95ea6214de54.jpg" alt="" />
+                        <div class="swiper-slide-content">
+                            <div class="swiper-slide-title">
+                                <div class="swiper-slide-title-text">三体沉浸式艺术展成都开展</div>
+                                <img class="swiper-slide-text-shadow" src="https://www.3body.com/static/image/pages-h5/home/text_shadow.png" alt="" />
+                            </div>
+                            <div class="swiper-slide-operation">
+                                <a class="swiper-slide-detail" href="https://www.3body.com/front/news/newsDetail.html?newsId=46" target="_blank">
+                                    <span>详情</span>
+                                    <img class="swiper-slide-detail_icon" src="https://www.3body.com/static/image/pages-h5/home/detail_button.png" alt="" />
+                                </a>
+                                <a class="swiper-slide-page" href="https://www.3body.com/home.html" target="_blank">主页</a>
+                            </div>
+                        </div>
+                        <img class="swiper-slide-shadow" src="https://www.3body.com/static/image/pages-h5/home/shadow.png" alt="" />
+                    </div>
+            </div>
+
+            <div class="swiper-button">
+                <div class="home-st-prev">
+                    <img class="swiper-st-button" src="https://www.3body.com/static/image/pages-h5/public/arrow_prev.png" alt="" >
+                </div>
+                <div class="home-st-next">
+                    <img class="swiper-st-button" src="https://www.3body.com/static/image/pages-h5/public/arrow_next.png" alt="" >
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div :class="isAlertShoe ? 'alert_dialog' : 'alert_dialog alert_dialog_hide' " >复制链接成功</div>
+    <div v-if="isShareGuide" class="share_guide share_guide_bg" @click="handleShareIconClick">
+        <div class="share_guide_inner">
+            <div class="share_guide_text">
+                <div>点击右上角</div>
+                <div>分享给好友或朋友圈</div>
+                <img class="share_guide_icon" src="https://www.3body.com/static/image/pages-h5/public/guide_line.png" alt="">
+            </div>
+            <div class="share_guide_understand">
+                <div class="share_guide_understand_text">了解</div>
+            </div>
+        </div>
+    </div>
+    <div v-if="isShowVague" class="on_line">
+        <div class="on_line_inner">
+            <div class="on_line_close">
+                <img class="on_line_close_icon" src="https://www.3body.com/static/image/pages-h5/culture/h5_icon_close.png" @click="closeOnLineClick()" alt="">
+            </div>
+            <div class="on_line_quan">
+                <div class="on_line_text">
+                    <div>即将</div>
+                    <div>上线</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://www.3body.com/static/utils/jquery/jquery.scrollToTop.min.js"></script>
+<script src="https://www.3body.com/static/utils/jquery/dialog.js"></script>
+<script src="https://www.3body.com/static/utils/swiper/swiper.min.js"></script>
+<script src="https://www.3body.com/static/utils/cookie.js"></script>
+
+<script type="text/javascript">
+
+    let swiperData = [];
+
+
+    // 头部组件
+    Vue.component('st-header', {
+        props: ['pagename', 'handleCaidanClick'],
+        data: () => {
+            return {
+                isShowCaidan: true,
+                elapsed: 0,
+            }
+        },
+        template: `
+          <div class="header">
+            <div class="header_top">
+              <div class="header_search">
+              </div>
+              <div class="header_logo">
+                <img class="header_icon" src="https://www.3body.com/static/image/pages-h5/public/st_logo.png" alt="" title="三体宇宙">
+              </div>
+              <div class="header_caidan" @click="onCaidanClick()">
+                <img v-if="isShowCaidan" class="header_icon" src="https://www.3body.com/static/image/pages-h5/public/icon_caidan.png" alt="">
+                <img v-if="!isShowCaidan" class="header_close_icon" src="https://www.3body.com/static/image/pages-h5/public/icon_close.png" alt="">
+              </div>
+            </div>
+            <div class="header_type" v-if="!!pagename">
+              <div class="header_pagename">{{pagename}}</div>
+              <div class="icon_enlarge">
+                <img class="header_icon" src="https://www.3body.com/static/image/pages-h5/public/icon_enlarge.png" alt="">
+              </div>
+            </div>
+            <div class="header_line"></div>
+          </div>
+        `,
+        mounted: function() {
+        },
+        methods: {
+            onCaidanClick: function() {
+                const now = new Date().valueOf();
+                if(now - this.elapsed <= 2000) return;
+                this.elapsed = now;
+
+                if (this.isShowCaidan) {
+                    this.isShowCaidan = false;
+                } else {
+                    this.isShowCaidan = true;
+                }
+                this.handleCaidanClick(!this.isShowCaidan)
+            },
+        },
+    });
+
+    // 中间组件
+    Vue.component('home-nav', {
+        props: ['data', 'toOtherPage'],
+        data: () => {
+            return {
+                activeType: '',
+                prevDomTop: '',
+                domTop: '',
+            }
+        },
+        template: `
+          <div class="content_layout" @click="toOtherPage(data.type)" @touchstart="touchStart(data.type)" @touchend="touchEnd(data.type)" @touchmove="touchMove(data.type)">
+            <div class="content_left">
+              <div class="content_left_number">
+                <div class="content_left_number_mask"></div>
+                <img class="content_left_number_icon" :src="activeType === data.type ? data.number2 : data.number1" alt="" srcset="">
+              </div>
+              <div :class="activeType === data.type ? 'content_left_name header_pagename_active' : 'content_left_name'">
+                <div>三体</div>
+                <div>{{data.name}}</div>
+              </div>
+              <div :class="activeType === data.type ? 'content_left_forward header_pagename_active' : 'content_left_forward'">前进</div>
+            </div>
+            <div class="content_right">
+              <div class="content_right_circle_mask"></div>
+              <img class="content_right_circle" :src="activeType === data.type ? data.src2 : data.src1" alt="" srcset="">
+            </div>
+          </div>
+        `,
+        mounted: function() {
+        },
+        methods: {
+            touchStart: function (type) {
+                this.activeType = type;
+            },
+            touchEnd: function (type) {
+                this.activeType = '';
+                this.domTop = '';
+            },
+            touchMove: function (type) {
+                this.domTop = $(window).scrollTop();
+                setTimeout(() => {
+                    if (this.domTop <= 0) {
+                        this.activeType = '';
+                        this.domTop = '';
+                    };
+                }, 100);
+            }
+        },
+    });
+
+    Vue.component('caidan-content', {
+        props: ['data', 'toOtherPage'],
+        data: () => {
+            return {
+                // toOtherPage: toOtherPage,
+            }
+        },
+        template: `
+          <div class="caidan_layout" @click="toOtherPage(data.type)">
+              <div class="caidan_layout_content">{{data.title}}</div>
+                <div class="content_left_line"></div>
+          </div>
+        `,
+        mounted: function() {
+            console.log('st-header组件', this.isShowCaidan);
+        },
+        methods: {
+        },
+    });
+
+    function initSwiper() {
+        let mySwiper = new Swiper ('.swiper-container', {
+            // direction: 'vertical', // 垂直切换选项
+            loop: true, // 循环模式选项
+            observer:true,
+            observeParents:true,
+
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.home-st-next',
+                prevEl: '.home-st-prev',
+            },
+        })
+    }
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            homePageData: [
+                {
+                    id: 1,
+                    name: '文化馆',
+                    number: '01',
+                    number1: 'https://www.3body.com/static/image/pages-h5/home/01_1.png',
+                    number2: 'https://www.3body.com/static/image/pages-h5/home/01_2.png',
+                    src1: 'https://www.3body.com/static/image/pages-h5/home/wenhua_1.png',
+                    src2: 'https://www.3body.com/static/image/pages-h5/home/wenhua_2.png',
+                    type: 'culture',
+                },
+                {
+                    id: 2,
+                    name: '生活馆',
+                    number: '02',
+                    number1: 'https://www.3body.com/static/image/pages-h5/home/02_1.png',
+                    number2: 'https://www.3body.com/static/image/pages-h5/home/02_2.png',
+                    src1: 'https://www.3body.com/static/image/pages-h5/home/shenghuo_1.png',
+                    src2: 'https://www.3body.com/static/image/pages-h5/home/shenghuo_2.png',
+                    type: 'life',
+                },
+                {
+                    id: 3,
+                    name: '档案馆',
+                    number: '03',
+                    number1: 'https://www.3body.com/static/image/pages-h5/home/03_1.png',
+                    number2: 'https://www.3body.com/static/image/pages-h5/home/03_2.png',
+                    src1: 'https://www.3body.com/static/image/pages-h5/home/dangan_1.png',
+                    src2: 'https://www.3body.com/static/image/pages-h5/home/dangan_2.png',
+                    type: 'archives',
+                },
+            ],
+            caidanData: [
+                {
+                    type: 'news',
+                    title: '新闻',
+                },
+                {
+                    type: 'community',
+                    title: '社群',
+                },
+                {
+                    type: 'about',
+                    title: '关于',
+                },
+            ],
+            swiperData: null,
+            isShowCaidan: false,
+            issafariBrowser: false,
+            isShareGuide: false,
+            isAlertShoe: false,
+            isShowVague: false,
+            activeType: '',
+            prevDomTop: '',
+            domTop: '',
+        },
+        component: ['st-header', 'home-nav', 'swiper-slide', 'caidan-content'],
+        mounted: function() {
+            console.log('mounted周期');
+            // this.homePageData = homePageData;
+            this.swiperData = swiperData;
+            this.issafariBrowser = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+            setTimeout(() => {
+                initSwiper();
+            }, 100);
+        },
+        methods: {
+            onShareClick: function () {
+                if (this.isWeiXin()) {
+                    this.isShareGuide = true;
+                } else {
+                    const url = window.location.href;
+                    const res = this.copyUrl(url);
+                    if (res) {
+                        this.isAlertShoe = true;
+                        setTimeout(() => {
+                            this.isAlertShoe = false;
+                        }, 2000);
+                    }
+                }
+
+            },
+            isWeiXin: function() {
+                if (typeof window === 'undefined') return false;
+                const ua = window.navigator.userAgent.toLowerCase();
+                return /micromessenger/.test(ua);
+            },
+            copyUrl: function (value) {
+                let oInput = document.createElement('input');
+                oInput.value = value;
+                document.body.appendChild(oInput);
+                oInput.select(); // 选择对象
+                document.execCommand("Copy"); // 执行浏览器复制命令
+                oInput.className = 'oInput';
+                oInput.style.display='none';
+                document.body.removeChild(oInput);
+                return true;
+            },
+            handleShareIconClick: function () {
+                this.isShareGuide = false;
+            },
+            toOtherPage: function (type, isGoto) {
+                if (type === 'culture') {
+                    window.location.href = "https://www.3body.com/front/culture/culture.html";
+                }
+                ;
+                if (type === 'life') {
+                    window.location.href = "https://www.3body.com/front/life/life.html";
+                }
+                ;
+                if (type === 'archives') {
+                    window.location.href = "https://www.3body.com/front/archive/archive.html";
+                }
+                ;
+                if (type === 'news') {
+                    window.location.href = "https://www.3body.com/front/news/news.html";
+                }
+                ;
+                if (type === 'community') {
+                    window.location.href = "https://www.3body.com/front/community/community.html";
+                }
+                ;
+                if (type === 'about') {
+                    window.location.href = "https://www.3body.com/front/about/about.html";
+                }
+                ;
+            },
+            onShowVagueClick: function () {
+                this.isShowVague = true;
+                $(`.header`).addClass('layout_bg_vague');
+                $(`.content`).addClass('layout_bg_vague');
+                $(`.home-swiper`).addClass('layout_bg_vague');
+                $(`.container`).addClass('stop_scroll');
+            },
+            closeOnLineClick: function () {
+                this.isShowVague = false;
+                $(`.header`).removeClass('layout_bg_vague');
+                $(`.content`).removeClass('layout_bg_vague');
+                $(`.home-swiper`).removeClass('layout_bg_vague');
+                $(`.container`).removeClass('stop_scroll');
+            },
+            handleCaidanClick: function(val) {
+                if (val) {
+                    this.isShowCaidan = val;
+                    $(`.caidan-content`).removeClass('caidan_animation_hide');
+                    $(`.caidan-content`).addClass('caidan_animation_show');
+                    setTimeout(() => {
+                        $(`.caidan-content`).css({'left': '0'});
+                    }, 1800);
+                } else {
+                    $(`.caidan-content`).removeClass('caidan_animation_show');
+                    $(`.caidan-content`).addClass('caidan_animation_hide');
+                    setTimeout(() => {
+                        $(`.caidan-content`).css({'left': '100vw'});
+                        this.isShowCaidan = val;
+                    }, 1800);
+                }
+            },
+            touchStart: function (type) {
+                this.activeType = type;
+            },
+            touchEnd: function (type) {
+                this.activeType = '';
+                this.domTop = '';
+            },
+            touchMove: function (type) {
+                this.domTop = $(window).scrollTop();
+                setTimeout(() => {
+                    if (this.domTop <= 0) {
+                        this.activeType = '';
+                        this.domTop = '';
+                    };
+                }, 100);
+            },
+        },
+    });
+
+    //页面加载完毕后执行
+    window.onload=function() {
+        const isRoll = getCookie('is_show_video');
+        if (!isRoll) {
+            const layoutH = $('.content').height() + $('.header').height();
+            $("html,body").animate({scrollTop: layoutH}, "slow");
+            setCookie('is_show_video', true, null, '/');
+        }
+    }
+
+
+</script>
+</body>
+
+</html>
